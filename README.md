@@ -2,8 +2,8 @@
 
 ### Steps
 
-- Add internsctl to `/usr/share/man `
-- Add internctl to aliash in bash file
+- Add internsctl_manual.1 to `/usr/share/man `
+- Add internctl.sh to aliash in bash file
 - source ~/.bashrc
 - `chmod +x internctl`
 - run required commands
