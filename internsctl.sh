@@ -69,15 +69,44 @@ cli_file_getinfo() {
         exit 1
     fi
 
-    file="$1"
+      case $1 in
+        "--size" | "-s")
+          stat -c %s "$2"
+          ;;
+        "--permissions" | "-p")
+          stat -c %a "$2"
+          ;;
+        "--owner" | "-o")
+          stat -c %U "$2"
+          ;;
+        "--last-modified" | "-m")
+          stat -c %y "$2"
+          ;;
+        *)
+          file="$1"
+          # Get file information using stat command
+          if [ -f "$file" ]; then
+            file_info=$(stat -c "File: %n\nAccess: %A\nSize(B): %s\nOwner: %U" "$file")
+            echo -e "$file_info"
+            exit
+          else
+              echo "File not found: $file"
+              exit 1
+          fi
+          ;;
+      esac
 
-    # Get file information using stat command
-    if [ -f "$file" ]; then
-        file_info=$(stat -c "File: %n\nAccess: %A\nSize(B): %s\nOwner: %U" "$file")
-        echo -e "$file_info"
-    else
+    if [ -z "$2" ]; then
+      file="$1"
+      # Get file information using stat command
+      if [ -f "$file" ]; then
+      file_info=$(stat -c "File: %n\nAccess: %A\nSize(B): %s\nOwner: %U" "$file")
+      echo -e "$file_info"
+      exit
+      else
         echo "File not found: $file"
         exit 1
+      fi
     fi
 }
 
@@ -129,7 +158,7 @@ case $1 in
     "file")
         case $2 in
             "getinfo")
-                cli_file_getinfo "$3"
+                cli_file_getinfo "$3" "$4"
                 ;;
             *)
                 echo "Invalid file subcommand: $2"
@@ -142,6 +171,3 @@ case $1 in
         cli_help
         ;;
 esac
-
-# Main program
-echo "Intern SCTL custom commands"
