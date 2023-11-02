@@ -1,0 +1,44 @@
+.\" Manpage for internsctl.
+.TH man 8 "2 November 2023" "0.1.0" "internsctl manual page"
+.SH NAME
+internsctl \- A placement project
+.SH SYNOPSIS
+internsctl [SUBCOMMAND] [OPTIONS] [FLAGS] ...
+.SH DESCRIPTION
+The Xenonstack placement project.
+.SH SUBCOMMANDS
+cpu / user / file
+
+.SH file SUBCOMMAND OPTIONS
+getinfo Get current info of CPU
+
+.SH user SUBCOMMAND OPTIONS
+create USERNAME Create a new user with given username
+
+list List all the users
+
+flags
+
+--sudo-only List users with sudo permissions only
+
+.SH file SUBCOMMAND OPTIONS
+getinfo FILENAME Get all information related to FILENAME
+
+flags
+
+--permissions, -p Show only permissions of the FILENAME
+
+--last-modified, -m Show last modified date and time of FILENAME
+
+--owner, -o Show owner name of FILENAME
+
+--size, -s Show size of FILENAME In bytes
+
+.SH EXAMPLES
+internsctl cpu getinfo - prints the all information related to CPU
+
+internsctl file getinfo abc.txt - prints everything about file abc.txt
+
+internsctl create alex - create new user with name "alex"
+.SH AUTHOR
+NAME
